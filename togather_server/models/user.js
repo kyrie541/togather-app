@@ -9,15 +9,12 @@ const userSchema = new mongoose.Schema({
   },
   username: {
     type: String,
-    require: true,
+    required: true,
     unique: true
   },
   password: {
     type: String,
     required: true
-  },
-  profileImageUrl: {
-    type: String
   }
 });
 

@@ -6,12 +6,20 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const errorHandler = require("./handlers/error");
 const authRoutes = require("./routes/auth");
+const eventRoutes = require("./routes/events");
+
+const { loginRequired } = require("./middleware/auth");
 
 const PORT = 8081;
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// UnProtected Route
 app.use("/api/auth", authRoutes);
+
+// Protected Route
+app.use("/api/events", loginRequired, eventRoutes);
 
 app.use(function(req, res, next) {
   let err = new Error("Not Found");
