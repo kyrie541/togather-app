@@ -203,11 +203,17 @@ const FieldInner = ({
       !shouldUpdateInstantly &&
       innerFormikValue !== getIn(form.values, name)
     ) {
-      updateFormikState(innerFormikValue, () => {
+      form.setFieldValue(name, innerFormikValue, false).then(() => {
         form.validateForm().then(() => {
           form.setFieldTouched(name, true, false);
         });
       });
+      // @todo i dont know why setFormikState wont callback, temporary use this solution and observe
+      // updateFormikState(innerFormikValue, () => {
+      //   form.validateForm().then(() => {
+      //     form.setFieldTouched(name, true, false);
+      //   });
+      // });
     }
 
     if (onBlur) {

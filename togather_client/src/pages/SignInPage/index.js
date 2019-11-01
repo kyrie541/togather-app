@@ -1,52 +1,76 @@
-import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from "mdbreact";
-import { PageForm } from "../../components";
-import { Formik } from "formik";
+import * as React from "react";
+import * as yup from "yup";
+import { FormikFormItem, Field } from "../../components";
+import { Formik, Form } from "formik";
+import { Button, Icon, Input } from "antd";
+import { createLoginSchema } from "../../validator/login";
+
+import "./styles.module.css";
 
 const SignInPage = () => {
+  const validationSchema = yup.object().shape(createLoginSchema());
+
   const handleSubmit = async (values, { setSubmitting }) => {
-    console.log("haha", values);
+    console.log("submit", values);
   };
 
   return (
     <Formik
-      initialValues={{}}
+      initialValues={{ email: null, password: null }}
       onSubmit={handleSubmit}
-      // validationSchema={campaignExpectationSchema}
+      validationSchema={validationSchema}
     >
       {formikProps => (
-        <PageForm>
-          <MDBContainer>
-            <MDBRow>
-              <MDBCol md="6">
-                <form>
-                  <p className="h5 text-center mb-4">Sign in</p>
-                  <div className="grey-text">
-                    <MDBInput
-                      label="Type your email"
-                      icon="envelope"
-                      group
-                      type="email"
-                      validate
-                      error="wrong"
-                      success="right"
-                    />
-                    <MDBInput
-                      label="Type your password"
-                      icon="lock"
-                      group
-                      type="password"
-                      validate
-                    />
-                  </div>
-                  <div className="text-center">
-                    <MDBBtn>Login</MDBBtn>
-                  </div>
-                </form>
-              </MDBCol>
-            </MDBRow>
-          </MDBContainer>
-        </PageForm>
+        <Form>
+          <FormikFormItem label="Email" name="email" required>
+            <Field
+              component={Input}
+              disabled={formikProps.isSubmitting}
+              forceLowerCase
+              name="email"
+              placeholder="Type in email"
+              prefix={
+                <Icon type="user" style={{ color: "rgba(0, 0, 0, 0.25)" }} />
+              }
+              size="large"
+              type="email"
+            />
+          </FormikFormItem>
+
+          <FormikFormItem label={"Password"} name="password" required>
+            <Field
+              component={Input}
+              disabled={formikProps.isSubmitting}
+              name="password"
+              placeholder={"Type in password"}
+              prefix={
+                <Icon type="lock" style={{ color: "rgba(0, 0, 0, 0.25)" }} />
+              }
+              size="large"
+              type="password"
+            />
+          </FormikFormItem>
+
+          <footer className="footer">
+            <Button
+              htmlType="submit"
+              loading={formikProps.isSubmitting}
+              size="large"
+              // style={{ width: "100%" }}
+              type="primary"
+            >
+              Log In
+            </Button>
+
+            {/* <div className={styles.additionalActions}>
+              <div />
+              <Link to="/forgot-password">
+                Forgot Password
+              </Link>
+            </div> */}
+          </footer>
+          {console.log("haha", formikProps.values)}
+        </Form>
       )}
     </Formik>
   );

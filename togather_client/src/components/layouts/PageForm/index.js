@@ -15,8 +15,8 @@ export const PageForm = ({
   formik,
   updateButtonLabel,
   children,
-  disabled = true,
-  includeFooter
+  disabled,
+  includeFooter = true
 }) => {
   const innerIsNew = () => {
     return typeof isNew !== "undefined" ? isNew : !formik.values["@id"];
@@ -27,6 +27,7 @@ export const PageForm = ({
   };
 
   const handleSubmit = ev => {
+    console.log("hahaa");
     ev.persist();
 
     // @todo performance improvements!
