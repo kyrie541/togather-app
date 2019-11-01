@@ -16,24 +16,23 @@ const SignInPage = () => {
 
   return (
     <Formik
-      initialValues={{ email: null, password: null }}
+      initialValues={{ username: null, password: null }}
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
       {formikProps => (
         <Form>
-          <FormikFormItem label="Email" name="email" required>
+          <FormikFormItem label="Username" name="username" required>
             <Field
               component={Input}
               disabled={formikProps.isSubmitting}
               forceLowerCase
-              name="email"
-              placeholder="Type in email"
+              name="username"
+              placeholder="Type in username"
               prefix={
                 <Icon type="user" style={{ color: "rgba(0, 0, 0, 0.25)" }} />
               }
               size="large"
-              type="email"
             />
           </FormikFormItem>
 

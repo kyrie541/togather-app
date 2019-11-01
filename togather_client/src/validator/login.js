@@ -8,10 +8,9 @@ export function createLoginSchema() {
       .min(8)
       .nullable()
       .required(),
-    email: yup
+    username: yup
       .string()
-      .label("Email")
-      .email()
+      .label("Username")
       .nullable()
       .required()
   };
