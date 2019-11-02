@@ -1,15 +1,15 @@
 /* eslint-disable import/no-named-as-default */
-import { NavLink, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
-// import AboutPage from "./AboutPage";
-// import FuelSavingsPage from "./containers/FuelSavingsPage";
-// import HomePage from "./HomePage";
+import { Navbar } from "./components";
+import EventsListPage from "./pages/EventsListpage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import PropTypes from "prop-types";
 import React from "react";
 import { hot } from "react-hot-loader";
+import withAuth from "./hocs/withAuth";
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -17,21 +17,14 @@ import { hot } from "react-hot-loader";
 
 class App extends React.Component {
   render() {
-    const activeStyle = { color: "blue" };
     return (
       <div>
-        <div>
-          <NavLink exact to="/" activeStyle={activeStyle}>
-            Sign In
-          </NavLink>
-          {" | "}
-          <NavLink to="/signup" activeStyle={activeStyle}>
-            Sign Up
-          </NavLink>
-        </div>
+        <Navbar />
+
         <Switch>
           <Route exact path="/" component={SignInPage} />
           <Route path="/signup" component={SignUpPage} />
+          <Route path="/events" component={withAuth(EventsListPage)} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>
