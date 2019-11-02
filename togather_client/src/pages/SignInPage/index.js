@@ -68,7 +68,6 @@ const SignInPage = () => {
               </Link>
             </div> */}
           </footer>
-          {console.log("haha", formikProps.values)}
         </Form>
       )}
     </Formik>

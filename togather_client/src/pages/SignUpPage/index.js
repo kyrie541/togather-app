@@ -23,7 +23,7 @@ const SignUpPage = () => {
         confirmPassword: null
       }}
       onSubmit={handleSubmit}
-      validate={customUserValidation}
+      validate={createUserValidation}
       validationSchema={validationSchema}
     >
       {formikProps => (
@@ -107,7 +107,6 @@ const SignUpPage = () => {
               </Link>
             </div> */}
           </footer>
-          {console.log("haha", formikProps.values)}
         </Form>
       )}
     </Formik>

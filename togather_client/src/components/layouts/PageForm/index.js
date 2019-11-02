@@ -27,7 +27,6 @@ export const PageForm = ({
   };
 
   const handleSubmit = ev => {
-    console.log("hahaa");
     ev.persist();
 
     // @todo performance improvements!

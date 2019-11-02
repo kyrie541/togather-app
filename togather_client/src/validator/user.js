@@ -29,29 +29,27 @@ export function createUserSchema() {
   };
 }
 
-export function createUserValidation() {
-  return value => {
-    if (isEmpty(value)) {
-      return true;
-    }
-
-    let errors = {};
-
-    if (
-      !!get(value, "password") &&
-      !!get(value, "confirmPassword") &&
-      value.password !== value.confirmPassword
-    ) {
-      errors = setIn(errors, "confirmPassword", "Password must be same");
-      errors = setIn(errors, "password", "Password must be same");
-    }
-
-    if (!isEmpty(errors)) {
-      throw errors;
-    }
-
+export function createUserValidation(value) {
+  if (isEmpty(value)) {
     return true;
-  };
+  }
+
+  let errors = {};
+
+  if (
+    !!get(value, "password") &&
+    !!get(value, "confirmPassword") &&
+    value.password !== value.confirmPassword
+  ) {
+    errors = setIn(errors, "confirmPassword", "Password must be same");
+    errors = setIn(errors, "password", "Password must be same");
+  }
+
+  if (!isEmpty(errors)) {
+    return errors;
+  }
+
+  return true;
 }
 
 export default createUserSchema;
