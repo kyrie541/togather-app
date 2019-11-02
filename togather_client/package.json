@@ -6,7 +6,6 @@
     "node": ">=8",
     "npm": ">=3"
   },
-  "proxy": "http://localhost:8081",
   "scripts": {
     "preinstall": "node tools/nodeVersionCheck.js",
     "start-message": "babel-node tools/startMessage.js",
@@ -38,6 +37,7 @@
     "connected-react-router": "6.4.0",
     "flat": "5.0.0",
     "formik": "2.0.3",
+    "http-proxy-middleware": "0.20.0",
     "invariant": "2.2.4",
     "jwt-decode": "2.2.0",
     "lodash": "4.17.15",

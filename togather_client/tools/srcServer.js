@@ -10,6 +10,8 @@ import webpack from "webpack";
 import webpackDevMiddleware from "webpack-dev-middleware";
 import webpackHotMiddleware from "webpack-hot-middleware";
 import config from "../webpack.config.dev";
+import proxyMiddleware from "http-proxy-middleware";
+// var proxyMiddleware = require('http-proxy-middleware');
 
 const bundler = webpack(config);
 
@@ -20,8 +22,6 @@ browserSync({
     port: 3001
   },
 
-  // proxy: "http://localhost:8081",
-
   server: {
     baseDir: "src",
 
@@ -30,6 +30,8 @@ browserSync({
         disableDotRule: true,
         htmlAcceptHeaders: ["text/html", "application/xhtml+xml"]
       }),
+
+      proxyMiddleware("/api", { target: "http://localhost:8081" }),
 
       webpackDevMiddleware(bundler, {
         // Dev middleware can't access config, so we provide publicPath
