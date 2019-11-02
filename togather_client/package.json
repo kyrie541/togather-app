@@ -6,6 +6,7 @@
     "node": ">=8",
     "npm": ">=3"
   },
+  "proxy": "http://localhost:8081",
   "scripts": {
     "preinstall": "node tools/nodeVersionCheck.js",
     "start-message": "babel-node tools/startMessage.js",
