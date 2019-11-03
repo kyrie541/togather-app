@@ -24,7 +24,7 @@ const Navbar = ({ action, currentUser, history }) => {
         </>
       ) : (
         <>
-          <NavLink exact to="/" activeStyle={activeStyle}>
+          <NavLink exact to="/signin" activeStyle={activeStyle}>
             Sign In
           </NavLink>
           {" | "}

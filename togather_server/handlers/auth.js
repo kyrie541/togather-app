@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 exports.signin = async function(req, res, next) {
   try {
     let user = await db.User.findOne({
-      email: req.body.email
+      username: req.body.username
     });
     let { id, username } = user;
 

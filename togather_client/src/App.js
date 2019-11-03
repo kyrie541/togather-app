@@ -6,6 +6,7 @@ import EventsListPage from "./pages/EventsListpage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import HomePage from "./pages/HomePage";
 import PropTypes from "prop-types";
 import React from "react";
 import { hot } from "react-hot-loader";
@@ -22,7 +23,8 @@ class App extends React.Component {
         <Navbar />
 
         <Switch>
-          <Route exact path="/" component={SignInPage} />
+          <Route exact path="/" component={HomePage} />
+          <Route path="/signin" component={SignInPage} />
           <Route path="/signup" component={SignUpPage} />
           <Route path="/events" component={withAuth(EventsListPage)} />
           <Route component={NotFoundPage} />

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as yup from "yup";
 import { Formik, Form } from "formik";
-import { Button, Icon, Input } from "antd";
+import { Button, Icon, Input, message } from "antd";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -10,7 +10,7 @@ import { FormikFormItem, Field } from "../../components";
 import { createLoginSchema } from "../../validator/login";
 import "./styles.module.css";
 
-const SignInPage = ({ action, history }) => {
+const SignInPage = ({ action, errors, history }) => {
   const validationSchema = yup.object().shape(createLoginSchema());
 
   const handleSubmit = async (values, { setSubmitting }) => {
@@ -19,7 +19,8 @@ const SignInPage = ({ action, history }) => {
       .then(() => {
         history.push("/");
       })
-      .catch(() => {
+      .catch(err => {
+        message.error(errors.message);
         return;
       });
   };
@@ -84,16 +85,25 @@ const SignInPage = ({ action, history }) => {
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  action: bindActionCreators(
-    {
-      authUser
-    },
-    dispatch
-  )
-});
+const mapStateToProps = state => {
+  console.log("state.errors", state.errors);
+  return {
+    errors: state.errors
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    action: bindActionCreators(
+      {
+        authUser
+      },
+      dispatch
+    )
+  };
+};
 
 export default connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps
 )(SignInPage);
