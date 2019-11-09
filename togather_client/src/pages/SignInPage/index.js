@@ -86,7 +86,6 @@ const SignInPage = ({ action, errors, history }) => {
 };
 
 const mapStateToProps = state => {
-  console.log("state.errors", state.errors);
   return {
     errors: state.errors
   };

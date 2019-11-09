@@ -239,11 +239,17 @@ const FieldInner = ({
       // @note we need to run all the functions in makeFormikValue as well.
       const newValue = makeFormikValue(innerInternalValue);
 
-      updateFormikState(newValue, () => {
+      form.setFieldValue(name, newValue, false).then(() => {
         form.validateForm().then(() => {
           form.setFieldTouched(name, true, false);
         });
       });
+
+      // updateFormikState(newValue, () => {
+      //   form.validateForm().then(() => {
+      //     form.setFieldTouched(name, true, false);
+      //   });
+      // });
     } else {
       setValue(innerInternalValue);
     }

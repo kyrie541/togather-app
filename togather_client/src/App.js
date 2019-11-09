@@ -2,7 +2,8 @@
 import { Route, Switch } from "react-router-dom";
 
 import { Navbar } from "./components";
-import EventsListPage from "./pages/EventsListpage";
+import EventListPage from "./pages/EventListPage";
+import EventDetailsPage from "./pages/EventDetailsPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -26,7 +27,19 @@ class App extends React.Component {
           <Route exact path="/" component={HomePage} />
           <Route path="/signin" component={SignInPage} />
           <Route path="/signup" component={SignUpPage} />
-          <Route path="/events" component={withAuth(EventsListPage)} />
+
+          <Route exact path="/events" component={withAuth(EventListPage)} />
+          <Route
+            exact
+            path="/events/create"
+            component={withAuth(EventDetailsPage)}
+          />
+          <Route
+            exact
+            path="/events/:id"
+            component={withAuth(EventDetailsPage)}
+          />
+
           <Route component={NotFoundPage} />
         </Switch>
       </div>
