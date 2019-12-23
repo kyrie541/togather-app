@@ -35,7 +35,7 @@ exports.getEvents = async function(req, res, next) {
   try {
     let events = await db.Event.find()
       .sort({ createdAt: "desc" })
-      .populate("user", {
+      .populate("creator", {
         username: true
       });
 

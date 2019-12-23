@@ -1,0 +1,27 @@
+:root {
+  --button-width: 120px;
+  --content-width: 960px;
+}
+
+.errorItem {
+  margin-bottom: 0.5rem;
+}
+
+.footer {
+  margin-top: 2.5rem;
+  text-align: right;
+
+  & .button {
+    @media only screen and (min-width: 576px) {
+      min-width: var(--button-width);
+    }
+
+    &:not(:first-child) {
+      margin-left: calc(0.5rem / 2);
+
+      @media only screen and (min-width: 576px) {
+        margin-left: 1rem;
+      }
+    }
+  }
+}

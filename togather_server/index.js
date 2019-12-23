@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const errorHandler = require("./handlers/error");
 const authRoutes = require("./routes/auth");
 const eventRoutes = require("./routes/events");
+const userRoutes = require("./routes/users");
 
 const { loginRequired } = require("./middleware/auth");
 
@@ -20,6 +21,7 @@ app.use("/api/auth", authRoutes);
 
 // Protected Route
 app.use("/api/events", loginRequired, eventRoutes);
+app.use("/api/users", loginRequired, userRoutes);
 
 app.use(function(req, res, next) {
   let err = new Error("Not Found");

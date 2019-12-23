@@ -6,11 +6,11 @@ Dependecy
 
 -mongodb is our database
 
-Backend (Express JS)
-npm install
-node index.js
-nodemon index.js
+Front-end  
+npm install  
+npm run dev
 
-Frontend (React JS)
-npm install
+Back-end  
+npm install  
+nodemon index.js  
 npm start

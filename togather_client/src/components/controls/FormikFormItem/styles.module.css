@@ -1,0 +1,7 @@
+.root {
+  & :global {
+    & .ant-form-explain {
+      margin-top: calc(0.5rem / 2);
+    }
+  }
+}

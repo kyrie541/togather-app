@@ -1,39 +1,108 @@
-import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from "mdbreact";
+import * as React from "react";
+import * as yup from "yup";
+import { Formik, Form } from "formik";
+import { Button, Icon, Input, message } from "antd";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-const SignInPage = () => {
+import { authUser } from "../../actions/auth";
+import { FormikFormItem, Field } from "../../components";
+import { createLoginSchema } from "../../validator/login";
+import "./styles.module.css";
+
+const SignInPage = ({ action, errors, history }) => {
+  const validationSchema = yup.object().shape(createLoginSchema());
+
+  const handleSubmit = async (values, { setSubmitting }) => {
+    action
+      .authUser("signin", values)
+      .then(() => {
+        history.push("/");
+      })
+      .catch(err => {
+        message.error(errors.message);
+        return;
+      });
+  };
+
   return (
-    <MDBContainer>
-      <MDBRow>
-        <MDBCol md="6">
-          <form>
-            <p className="h5 text-center mb-4">Sign in</p>
-            <div className="grey-text">
-              <MDBInput
-                label="Type your email"
-                icon="envelope"
-                group
-                type="email"
-                validate
-                error="wrong"
-                success="right"
-              />
-              <MDBInput
-                label="Type your password"
-                icon="lock"
-                group
-                type="password"
-                validate
-              />
-            </div>
-            <div className="text-center">
-              <MDBBtn>Login</MDBBtn>
-            </div>
-          </form>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+    <Formik
+      initialValues={{ username: null, password: null }}
+      onSubmit={handleSubmit}
+      validationSchema={validationSchema}
+    >
+      {formikProps => (
+        <Form>
+          <FormikFormItem label="Username" name="username" required>
+            <Field
+              component={Input}
+              disabled={formikProps.isSubmitting}
+              forceLowerCase
+              name="username"
+              placeholder="Type in username"
+              prefix={
+                <Icon type="user" style={{ color: "rgba(0, 0, 0, 0.25)" }} />
+              }
+              size="large"
+            />
+          </FormikFormItem>
+
+          <FormikFormItem label={"Password"} name="password" required>
+            <Field
+              component={Input}
+              disabled={formikProps.isSubmitting}
+              name="password"
+              placeholder={"Type in password"}
+              prefix={
+                <Icon type="lock" style={{ color: "rgba(0, 0, 0, 0.25)" }} />
+              }
+              size="large"
+              type="password"
+            />
+          </FormikFormItem>
+
+          <footer className="footer">
+            <Button
+              htmlType="submit"
+              loading={formikProps.isSubmitting}
+              size="large"
+              // style={{ width: "100%" }}
+              type="primary"
+            >
+              Log In
+            </Button>
+
+            {/* <div className={styles.additionalActions}>
+              <div />
+              <Link to="/forgot-password">
+                Forgot Password
+              </Link>
+            </div> */}
+          </footer>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
-export default SignInPage;
+const mapStateToProps = state => {
+  return {
+    errors: state.errors
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    action: bindActionCreators(
+      {
+        authUser
+      },
+      dispatch
+    )
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignInPage);
