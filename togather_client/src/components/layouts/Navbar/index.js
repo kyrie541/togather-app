@@ -39,6 +39,11 @@ const Navbar = ({ action, currentUser, history }) => {
         <>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand">
+              <NavLink exact to="/" activeStyle={activeStyle}>
+                Home
+              </NavLink>
+            </a>
+            <a className="navbar-brand">
               <NavLink exact to="/signin" activeStyle={activeStyle}>
                 Sign In
               </NavLink>
