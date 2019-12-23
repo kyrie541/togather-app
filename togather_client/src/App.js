@@ -1,9 +1,6 @@
 /* eslint-disable import/no-named-as-default */
 import { NavLink, Route, Switch } from "react-router-dom";
 
-// import AboutPage from "./AboutPage";
-// import FuelSavingsPage from "./containers/FuelSavingsPage";
-// import HomePage from "./HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import NotFoundPage from "./pages/NotFoundPage";
