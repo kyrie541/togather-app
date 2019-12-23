@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { logout } from "../../../actions/auth";
+import { Icon } from "antd";
+
+import styles from "./styles.module.css";
 
 const Navbar = ({ action, currentUser, history }) => {
   const activeStyle = { color: "blue" };
@@ -16,21 +19,36 @@ const Navbar = ({ action, currentUser, history }) => {
     <div>
       {currentUser.isAuthenticated ? (
         <>
-          <NavLink exact to="/events" activeStyle={activeStyle}>
-            View Events
-          </NavLink>
-          {" | "}
-          <a onClick={logout}>Log out</a>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand">
+              <NavLink exact to="/" activeStyle={activeStyle}>
+                Home
+              </NavLink>
+            </a>
+            <a className="navbar-brand">
+              <NavLink exact to="/events" activeStyle={activeStyle}>
+                View Events
+              </NavLink>
+            </a>
+            <a className="navbar-brand" onClick={logout}>
+              <NavLink>Log out</NavLink>
+            </a>
+          </nav>
         </>
       ) : (
         <>
-          <NavLink exact to="/signin" activeStyle={activeStyle}>
-            Sign In
-          </NavLink>
-          {" | "}
-          <NavLink to="/signup" activeStyle={activeStyle}>
-            Sign Up
-          </NavLink>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand">
+              <NavLink exact to="/signin" activeStyle={activeStyle}>
+                Sign In
+              </NavLink>
+            </a>
+            <a className="navbar-brand">
+              <NavLink to="/signup" activeStyle={activeStyle}>
+                Sign Up
+              </NavLink>
+            </a>
+          </nav>
         </>
       )}
     </div>

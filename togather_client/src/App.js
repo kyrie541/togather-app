@@ -10,7 +10,6 @@ import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage";
 import PropTypes from "prop-types";
 import React from "react";
-s;
 import { hot } from "react-hot-loader";
 import withAuth from "./hocs/withAuth";
 
@@ -21,7 +20,7 @@ import withAuth from "./hocs/withAuth";
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className="container">
         <Navbar />
 
         <Switch>

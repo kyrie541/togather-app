@@ -5,6 +5,8 @@ Dependecy
 -mongodb
 
 -mongodb is our database
+-mongodb cheatsheet
+https://dzone.com/articles/mongodb-commands-cheat-sheet-for-beginners
 
 Front-end  
 npm install  

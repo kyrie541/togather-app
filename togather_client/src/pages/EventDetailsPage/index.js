@@ -4,6 +4,7 @@ import { Button, Input, message } from "antd";
 import { createEventSchema } from "../../validator/event";
 import * as yup from "yup";
 import { apiCall } from "../../services/api";
+import { NavLink } from "react-router-dom";
 
 import { DatePicker, FormikFormItem, Field } from "../../components";
 
@@ -81,6 +82,11 @@ const EventDetailsPage = ({ history }) => {
             </FormikFormItem>
 
             <footer className="footer">
+              <Button type="default" size="large">
+                <NavLink exact to="/events">
+                  Back
+                </NavLink>
+              </Button>
               <Button
                 htmlType="submit"
                 loading={formikProps.isSubmitting}
