@@ -153,7 +153,9 @@ const EventListPage = ({ currentUser, history }) => {
     {
       title: "Status",
       render: record => {
-        if (record.participants.includes(currentUser.user.id)) {
+        if (moment().isSameOrAfter(moment(record.planStartDate))) {
+          return <Tag color="yellow">End</Tag>;
+        } else if (record.participants.includes(currentUser.user.id)) {
           return <Tag color="green">Going</Tag>;
         } else {
           return <Tag color="red">Not Going</Tag>;

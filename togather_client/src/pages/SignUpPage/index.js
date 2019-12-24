@@ -1,7 +1,7 @@
 import React from "react";
 import * as yup from "yup";
 import { Formik, Form } from "formik";
-import { Button, Icon, Input } from "antd";
+import { Button, Icon, Input, message } from "antd";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -16,9 +16,15 @@ const SignUpPage = ({ action, history }) => {
     action
       .authUser("signup", values)
       .then(() => {
+        message.success(`Sign up successfully!`);
         history.push("/");
       })
-      .catch(() => {
+      .catch(err => {
+        if (!!err.message) {
+          message.error(err.message);
+        } else {
+          message.error("Something went wrong, please try again later");
+        }
         return;
       });
   };
@@ -106,7 +112,7 @@ const SignUpPage = ({ action, history }) => {
               // style={{ width: "100%" }}
               type="primary"
             >
-              Log In
+              Sign Up
             </Button>
 
             {/* <div className={styles.additionalActions}>
@@ -131,7 +137,4 @@ const mapDispatchToProps = dispatch => ({
   )
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(SignUpPage);
+export default connect(undefined, mapDispatchToProps)(SignUpPage);

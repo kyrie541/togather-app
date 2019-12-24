@@ -17,10 +17,16 @@ const SignInPage = ({ action, errors, history }) => {
     action
       .authUser("signin", values)
       .then(() => {
+        message.success(`Sign in successfully!`);
         history.push("/");
       })
       .catch(err => {
-        message.error(errors.message);
+        if (!!err.message) {
+          message.error(err.message);
+        } else {
+          message.error("Something went wrong, please try again later");
+        }
+
         return;
       });
   };
@@ -102,7 +108,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignInPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);

@@ -34,7 +34,7 @@ export function authUser(type, userData) {
         })
         .catch(err => {
           dispatch(addError(err.message));
-          reject();
+          reject(err);
         });
     });
   };

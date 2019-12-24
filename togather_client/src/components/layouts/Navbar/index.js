@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { logout } from "../../../actions/auth";
-import { Icon } from "antd";
+import { message } from "antd";
 
 import styles from "./styles.module.css";
 
@@ -13,6 +13,7 @@ const Navbar = ({ action, currentUser, history }) => {
   const logout = e => {
     e.preventDefault();
     action.logout();
+    message.success(`Log out successfully!`);
   };
 
   return (
@@ -75,7 +76,4 @@ const mapDispatchToProps = dispatch => ({
   )
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Navbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
