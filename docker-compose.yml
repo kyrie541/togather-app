@@ -4,17 +4,9 @@ services:
   mongo:
     image: mongo
     restart: always
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=example
-
-  nginx:
-    restart: always
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./nginx
-    ports:
-      - '3050:80'
+    # environment:
+    #   - MONGO_INITDB_ROOT_USERNAME=root
+    #   - MONGO_INITDB_ROOT_PASSWORD=example
 
   api:
     build:
@@ -24,8 +16,7 @@ services:
       - /app/node_modules
       - ./togather_server:/app
     environment:
-      - MONGODB_USER=root
-      - MONGODB_PASSWORD=example
+      - MONGODB_URL=mongodb://mongo:27017/togather
     depends_on:
       - mongo
 
@@ -36,3 +27,11 @@ services:
     volumes:
       - /app/node_modules
       - ./togather_client:/app
+
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
