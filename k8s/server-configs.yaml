@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: server-side-configs
+data:
+  MONGODB_URL: 'mongodb://mongo:27017/togather'
+  SECRET_KEY: 'hjskgnklsdmczposjeioawhtgbmdasjknbxa'
