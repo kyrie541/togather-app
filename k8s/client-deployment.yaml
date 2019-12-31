@@ -1,0 +1,21 @@
+# Chapter 13/6a
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: web
+  template:
+    metadata:
+      labels:
+        component: web
+    spec:
+      containers:
+        - name: client
+          image: kyrie541/togather-client
+          ports:
+            - containerPort: 3000
