@@ -21,4 +21,7 @@ spec:
             - name: MONGODB_URL
               value: mongodb://mongodb-cluster-ip-service/togather
             - name: SECRET_KEY
-              value: hjskgnklsdmczposjeioawhtgbmdasjknbxa
+              valueFrom:
+                secretKeyRef:
+                  name: secretkey
+                  key: SECRET_KEY
