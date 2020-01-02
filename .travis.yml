@@ -15,7 +15,7 @@ before_install:
   - gcloud config set project togather-project
   - gcloud config set compute/zone asia-southeast1-b
   - gcloud container clusters get-credentials togather-cluster
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --pasword-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 script:
   - echo "Skipping tests..."
