@@ -11,11 +11,9 @@ mongoose
     useFindAndModify: false
   })
   .then(() => {
-    console.log('success', process.env.MONGODB_URL);
     console.log('Database connect sucessfully');
   })
-  .catch(() => {
-    console.log('fail', process.env.MONGODB_URL);
+  .catch(err => {
     console.log('Database connection Failed');
   });
 

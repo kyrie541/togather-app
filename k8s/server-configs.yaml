@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: server-side-configs
 data:
-  MONGODB_URL: 'mongodb://mongo:27017/togather'
+  MONGODB_URL: 'mongodb://mongodb-cluster-ip-service/togather'
   SECRET_KEY: 'hjskgnklsdmczposjeioawhtgbmdasjknbxa'
