@@ -17,13 +17,8 @@ spec:
           image: kyrie541/togather-server
           ports:
             - containerPort: 8081
-          envFrom:
-            - configMapRef:
-                name: server-side-configs
-          # env:
-          #   - name: MONGODB_URL
-          #     valueFrom:
-          #       fieldRef:
-          #         fieldPath: mongodb-cluster-ip-service.default
-          #   - name: SECRET_KEY
-          #     value: hjskgnklsdmczposjeioawhtgbmdasjknbxa
+          env:
+            - name: MONGODB_URL
+              value: mongodb://mongodb-cluster-ip-service/togather
+            - name: SECRET_KEY
+              value: hjskgnklsdmczposjeioawhtgbmdasjknbxa
