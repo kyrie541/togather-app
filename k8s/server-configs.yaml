@@ -4,4 +4,3 @@ metadata:
   name: server-side-configs
 data:
   MONGODB_URL: 'mongodb://mongodb-cluster-ip-service/togather'
-  SECRET_KEY: 'hjskgnklsdmczposjeioawhtgbmdasjknbxa'
