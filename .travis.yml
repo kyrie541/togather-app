@@ -16,6 +16,9 @@ before_install:
   - gcloud config set compute/zone asia-southeast1-b
   - gcloud container clusters get-credentials togather-cluster
 
+script:
+  - echo "Skipping tests..."
+
 deploy:
   provider: script
   script: bash ./deploy.sh
