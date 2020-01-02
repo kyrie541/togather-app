@@ -14,7 +14,7 @@ spec:
         - www.togather.online
       secretName: togather-online
   rules:
-    - host: togather.sonline
+    - host: togather.online
       http:
         paths:
           - path: /
