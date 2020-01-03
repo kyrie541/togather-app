@@ -9,11 +9,24 @@ import "./styles.module.css";
 
 const EventListPage = ({ currentUser, history }) => {
   const [events, setEvents] = React.useState(null);
+
   const [isEventDetailModalOpen, setIsEventDetailModalOpen] = React.useState(
     false
   );
   const [selectedEvent, setSelectedEvent] = React.useState();
   const [participants, setParticipants] = React.useState([]);
+
+  React.useEffect(() => {
+    if (events === null) {
+      apiCall("get", `/api/events`)
+        .then(events => {
+          setEvents(events);
+        })
+        .catch(err => {
+          message.error(err);
+        });
+    }
+  });
 
   const handleClick = () => {
     history.push("/events/create");
@@ -31,6 +44,8 @@ const EventListPage = ({ currentUser, history }) => {
       .catch(err => {
         message.error(err);
       });
+
+    setIsEventDetailModalOpen(false);
   };
 
   const handleViewEventDetails = async record => {
@@ -75,6 +90,7 @@ const EventListPage = ({ currentUser, history }) => {
             }
           });
           setEvents(newEvents);
+
           message.success(`Event ${event.title} has been updated.`);
         })
         .catch(err => {
@@ -100,6 +116,7 @@ const EventListPage = ({ currentUser, history }) => {
               return innerEvent;
             }
           });
+
           setEvents(newEvents);
           message.success(`Event ${event.title} has been updated.`);
         })
@@ -117,17 +134,13 @@ const EventListPage = ({ currentUser, history }) => {
     setSelectedEvent(null);
   };
 
-  React.useEffect(() => {
-    if (events === null) {
-      apiCall("get", `/api/events`)
-        .then(events => {
-          setEvents(events);
-        })
-        .catch(err => {
-          message.error(err);
-        });
-    }
-  });
+  const handleRowClick = (record, rowIndex) => {
+    return {
+      onClick: () => {
+        handleViewEventDetails(record);
+      }
+    };
+  };
 
   const columns = [
     {
@@ -168,29 +181,6 @@ const EventListPage = ({ currentUser, history }) => {
       },
 
       key: "location"
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (text, record) => (
-        <span>
-          <a href="#" onClick={() => handleViewEventDetails(record)}>
-            View Details
-          </a>
-          <Divider type="vertical" />
-          <Popconfirm
-            title="Are you sure delete this event?"
-            onConfirm={() => handleConfirmDelete(record)}
-            okText="Yes"
-            cancelText="No"
-            disabled={record.creator._id !== currentUser.user.id}
-          >
-            <a href="#" disabled={record.creator._id !== currentUser.user.id}>
-              Delete
-            </a>
-          </Popconfirm>
-        </span>
-      )
     }
   ];
 
@@ -202,6 +192,7 @@ const EventListPage = ({ currentUser, history }) => {
         columns={columns}
         pagination={{ pageSize: 10 }}
         className="eventListTable"
+        onRow={handleRowClick}
       />
 
       <Button type="primary" onClick={handleClick}>
@@ -212,18 +203,38 @@ const EventListPage = ({ currentUser, history }) => {
         visible={isEventDetailModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        okText={
-          !!get(selectedEvent, "participants") &&
-          !selectedEvent.participants.includes(currentUser.user.id)
-            ? "Join Now!"
-            : "Not Going"
-        }
-        okType={
-          !!get(selectedEvent, "participants") &&
-          !selectedEvent.participants.includes(currentUser.user.id)
-            ? "primary"
-            : "danger"
-        }
+        footer={[
+          <Popconfirm
+            title="Are you sure delete this event?"
+            onConfirm={() => handleConfirmDelete(selectedEvent)}
+            okText="Yes"
+            cancelText="No"
+            disabled={get(selectedEvent, "creator._id") !== currentUser.user.id}
+          >
+            <Button
+              disabled={
+                get(selectedEvent, "creator._id") !== currentUser.user.id
+              }
+            >
+              Delete
+            </Button>
+          </Popconfirm>,
+          <Button
+            key="submit"
+            type={
+              !!get(selectedEvent, "participants") &&
+              !selectedEvent.participants.includes(currentUser.user.id)
+                ? "primary"
+                : "danger"
+            }
+            onClick={handleOk}
+          >
+            {!!get(selectedEvent, "participants") &&
+            !selectedEvent.participants.includes(currentUser.user.id)
+              ? "Join Now!"
+              : "Not Going"}
+          </Button>
+        ]}
       >
         <p>
           <span className="boldText">Title: </span>
@@ -246,7 +257,11 @@ const EventListPage = ({ currentUser, history }) => {
             : "-"}
         </p>
         <p>
-          <span className="boldText">Participant: </span>
+          <span className="boldText">Host: </span>
+          {get(selectedEvent, "creator.username")}
+        </p>
+        <p>
+          <span className="boldText">Participants: </span>
           {participants.join(", ")}
         </p>
       </Modal>
@@ -260,4 +275,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, undefined)(EventListPage);
+export default connect(
+  mapStateToProps,
+  undefined
+)(EventListPage);

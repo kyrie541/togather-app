@@ -11,3 +11,7 @@
     display: none;
   }
 }
+
+.ant-table-tbody > tr.ant-table-row:hover > td {
+  cursor: pointer;
+}
