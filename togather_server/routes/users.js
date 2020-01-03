@@ -1,14 +1,14 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router({ mergeParams: true });
 
-const { getUser } = require("../handlers/users");
+const { getUser } = require('../controllers/users');
 
 // router
 //   .route("/")
 //   .get(getEvents)
 //   .post(createEvent);
 
-router.route("/:user_id").get(getUser);
+router.route('/:user_id').get(getUser);
 // .put(updateEvent)
 // .delete(deleteEvent);
 
