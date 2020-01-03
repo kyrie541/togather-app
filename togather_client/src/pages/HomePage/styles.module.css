@@ -1,3 +1,10 @@
+@media only screen and (max-width: 600px) {
+  .fun {
+    width: 80%;
+    margin: 25px 30px !important;
+  }
+}
+
 .fun {
   margin: 5em;
   animation: 8s infinite beatHeart;

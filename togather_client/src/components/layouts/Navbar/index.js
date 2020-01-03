@@ -34,6 +34,7 @@ const Navbar = ({ action, currentUser, history }) => {
             <a className="navbar-brand" onClick={logout}>
               <NavLink>Log out</NavLink>
             </a>
+            <div className="navbar-brand">{currentUser.user.username}</div>
           </nav>
         </>
       ) : (

@@ -19,3 +19,8 @@ Back-end
 npm install  
 nodemon index.js  
 npm start
+
+Development Flow
+-make sure Dockerfile.dev and Dockerfile is identical
+-make sure all app working fine with docker-compose
+-docker-compose using production image

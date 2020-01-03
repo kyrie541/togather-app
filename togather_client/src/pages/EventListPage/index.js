@@ -138,15 +138,20 @@ const EventListPage = ({ currentUser, history }) => {
     {
       title: "Host",
       dataIndex: "creator.username",
-      key: "creator.username"
+      key: "creator.username",
+      render: creatorName =>
+        !!creatorName ? (
+          <div className="hideWhenMobile">{creatorName}</div>
+        ) : (
+          "-"
+        )
     },
-
     {
       key: "planStartDate",
       dataIndex: "planStartDate",
       render: planStartDate =>
         !!planStartDate
-          ? moment(planStartDate).format(`DD/MM/YYYY h:mm A`)
+          ? moment(planStartDate).format(`dddd, DD/MM h:mm A`)
           : "-",
       title: "Time"
     },
@@ -196,6 +201,7 @@ const EventListPage = ({ currentUser, history }) => {
         dataSource={events}
         columns={columns}
         pagination={{ pageSize: 10 }}
+        className="eventListTable"
       />
 
       <Button type="primary" onClick={handleClick}>
@@ -235,7 +241,7 @@ const EventListPage = ({ currentUser, history }) => {
           <span className="boldText">Event Time: </span>
           {!!get(selectedEvent, "planStartDate")
             ? moment(get(selectedEvent, "planStartDate")).format(
-                `DD/MM/YYYY h:mm A`
+                `dddd, DD/MM/YYYY h:mm A`
               )
             : "-"}
         </p>

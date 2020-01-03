@@ -1,3 +1,13 @@
 .boldText {
   font-weight: bold;
 }
+
+@media only screen and (max-width: 600px) {
+  .eventListTable tbody tr td:nth-child(2) {
+    display: none;
+  }
+
+  .eventListTable thead tr th:nth-child(2) {
+    display: none;
+  }
+}
