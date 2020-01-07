@@ -7,7 +7,8 @@ import { connect } from "react-redux";
 
 import "./styles.module.css";
 
-const EventListPage = ({ currentUser, history }) => {
+const EventListPage = ({ currentUser, history, location }) => {
+  console.log("location", location);
   const [events, setEvents] = React.useState(null);
 
   const [isEventDetailModalOpen, setIsEventDetailModalOpen] = React.useState(
@@ -25,6 +26,19 @@ const EventListPage = ({ currentUser, history }) => {
         .catch(err => {
           message.error(err);
         });
+    }
+
+    if (
+      get(location, "hash") &&
+      Array.isArray(events) &&
+      events.length > 0 &&
+      !isEventDetailModalOpen
+    ) {
+      const hashEvent = events.find(event => {
+        return event._id === get(location, "hash").replace("#", "");
+      });
+
+      !!hashEvent ? handleViewEventDetails(hashEvent) : undefined;
     }
   });
 
@@ -51,14 +65,17 @@ const EventListPage = ({ currentUser, history }) => {
   const handleViewEventDetails = async record => {
     const participantsArray = [];
 
-    for (var i = 0; i < record.participants.length; i++) {
-      await apiCall("get", `/api/users/${record.participants[i]}`)
-        .then(user => {
-          participantsArray.push(user);
-        })
-        .catch(err => {
-          message.error(`Participant ${err}`);
-        });
+    // because participants is not iterate, so make another apiCall again
+    if (record.participants.length > 0) {
+      for (var i = 0; i < record.participants.length; i++) {
+        await apiCall("get", `/api/users/${record.participants[i]}`)
+          .then(user => {
+            participantsArray.push(user);
+          })
+          .catch(err => {
+            message.error(`Participant ${err}`);
+          });
+      }
     }
 
     setParticipants(
@@ -130,6 +147,7 @@ const EventListPage = ({ currentUser, history }) => {
   };
 
   const handleCancel = () => {
+    location.hash = "";
     setIsEventDetailModalOpen(false);
     setSelectedEvent(null);
   };
@@ -275,7 +293,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  undefined
-)(EventListPage);
+export default connect(mapStateToProps, undefined)(EventListPage);
