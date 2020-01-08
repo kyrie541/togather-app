@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import "./styles.module.css";
 
 const EventListPage = ({ currentUser, history, location }) => {
-  console.log("location", location);
   const [events, setEvents] = React.useState(null);
 
   const [isEventDetailModalOpen, setIsEventDetailModalOpen] = React.useState(
