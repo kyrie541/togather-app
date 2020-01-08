@@ -23,7 +23,12 @@ export function createUserSchema() {
       .required(),
     username: yup
       .string()
+      .matches(
+        /^[-\w\.\$@\*\!]{1,30}$/,
+        "Space and Special Character is not allowed."
+      )
       .label("Username")
+      .min(8)
       .nullable()
       .required()
   };
