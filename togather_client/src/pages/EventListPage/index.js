@@ -144,17 +144,19 @@ const EventListPage = ({ currentUser, history, location }) => {
 
     setIsEventDetailModalOpen(false);
     setSelectedEvent(null);
+    history.push(`/events`);
   };
 
   const handleCancel = () => {
-    location.hash = "";
     setIsEventDetailModalOpen(false);
     setSelectedEvent(null);
+    history.push(`/events`);
   };
 
   const handleRowClick = (record, rowIndex) => {
     return {
       onClick: () => {
+        history.push(`/events#${record._id}`);
         handleViewEventDetails(record);
       }
     };
