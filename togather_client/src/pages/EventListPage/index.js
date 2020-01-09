@@ -58,6 +58,7 @@ const EventListPage = ({ currentUser, history, location }) => {
         message.error(err);
       });
 
+    history.push(`/events`);
     setIsEventDetailModalOpen(false);
   };
 
