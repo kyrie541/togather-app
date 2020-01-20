@@ -1,6 +1,6 @@
 # togather-app
 
-Dependecy
+Dependency
 -NodeJS
 -mongodb
 
