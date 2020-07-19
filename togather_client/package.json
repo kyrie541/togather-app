@@ -41,7 +41,7 @@
     "http-proxy-middleware": "0.20.0",
     "invariant": "2.2.4",
     "jwt-decode": "2.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mdbreact": "4.22.0",
     "moment": "2.24.0",
     "object-assign": "4.1.1",
